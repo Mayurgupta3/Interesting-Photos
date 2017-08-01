@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 from forms import SignUpForm, LoginForm, PostForm, LikeForm, CommentForm, commentlikeform, searchform
-from models import User ,SessionToken,PostModel,LikeModel, CommentModel, CommentLike, Search
+from models import User ,SessionToken,PostModel,LikeModel, CommentModel, CommentLike, SearchModel
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password, check_password
 from Instaclone.settings import BASE_DIR
@@ -38,7 +38,7 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = User.objects.filter(username=username).first()
+            user = User.objects.filter(username= username).first()
 
             if user:
                 if check_password(password, user.password):
@@ -95,22 +95,22 @@ def post_view(request):
                   category = arr[i]['name']
                   print category
                   if category == 'nature':
-                      post.category = category
+                      post.category_post = category
 
                       break
                   elif category == 'technology':
-                      post.category = category
+                      post.category_post = category
 
                       break
                   elif category == 'food':
-                      post.category = category
+                      post.category_post = category
                       break
                   elif category == 'sports':
-                      post.category = category
+                      post.category_post = category
 
                       break
                   elif category == 'vehicle':
-                      post.category = category
+                      post.category_post = category
 
               post.save()
 
@@ -131,6 +131,7 @@ def like_view(request):
             post_id = form.cleaned_data.get('post').id
 
             existing_like = LikeModel.objects.filter(post_id=post_id, user=user).first()
+            print existing_like
 
             if not existing_like:
                 LikeModel.objects.create(post_id=post_id, user=user)
@@ -168,6 +169,15 @@ def check_validation(request):
         return None
 
 
+def logout_view(request):
+    user = check_validation(request)
+    if user is not None:
+        latest_session = SessionToken.objects.filter(user=user).last()
+        if latest_session:
+            latest_session.delete()
+
+    return redirect("/login/")
+
 
 def commentlike_view(request):
 
@@ -189,25 +199,32 @@ def commentlike_view(request):
     else:
         return redirect('/login/')
 
+
 def search_view(request):
-    return render(request, 'search.html', {'form': form})
-
-
-
-
-def search1_view(request):
-
-    user = check_validation(request)
-    if user and request.method == 'POST':
+    if request.method == "POST":
+        print 'POST'
         form = searchform(request.POST)
+        print form
         if form.is_valid():
-            search = request.POST('search')
-            print search
-            return render('/login/')  # Redirect after POST
+            print 'valid'
+            search = form.cleaned_data.get('category')
+            search1 = SearchModel(category=search)
+            print search1
+            search1.save()
+            posts = PostModel.objects.filter(category_post = search)
+            print posts
+            if posts:
+                return redirect('/category/',{'posts': posts})
+            else:
+                return render(request,'search.html',{'form': form})
+
+        else:
+            print 'INVALID'
+            return render(request,'search.html',{'form':form})
+    elif request.method == "GET":
+        form = searchform()
+        return render(request,'search.html',{'form': form})
 
 
-
-
-
-
-
+def category_view(request):
+    return render(request,'category.html')

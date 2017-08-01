@@ -4,16 +4,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>category</title>
 </head>
 <body>
     <form method="post" action="/post/">
         {% csrf_token %}
         <input type="submit" class="btn-default btn" value="Create Post">
     </form>
-    <form method="post" action="/search/">
+    <form method="POST" action="/search/">
         {% csrf_token %}
-        <input type="submit" class="btn-default btn" value="Search">
+        <input type="submit" class="btn-default btn" value="search">
     </form>
 
 
