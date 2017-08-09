@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <title>Post</title>
 </head>
+<style>
+body {
+     text-align:center;
+     background: blue;
+}
+    input[type="submit"] {
+           background: grey;
+            color:white;
+            border: 0px;
+            font-size: smaller;
+            border-radius: 15%;
+            font-size: 18px;
+            padding: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 16px;
+}
+       h1 {
+            color: firebrick;
+            font-size: 55px;
+ }
+        input[type="text"] {
+            font-size: smaller;
+            width: 250px;
+            height: 25px;
+            background: khaki;
+            border: 0px;
+            padding: 10px 10px 10px 10px;
+            margin-bottom: 10px;
+  }
+          label {
+            color: #B61493;
+            font-size: 20px;
+            color: chocolate;
+            padding: 10px 10px 10px 10px;
+   }
+</style>
+
 <body>
 <form method="POST" enctype="multipart/form-data">
        {% csrf_token %}

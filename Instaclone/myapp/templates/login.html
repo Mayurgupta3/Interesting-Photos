@@ -2,11 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>Login </title>
 </head>
+<img src="https://public-assets.envato-static.com/assets/header-footer/social/instagram-7527061010a48c8afcf551be64441f1e32396592b1fdb7bb71572ca65e46e877.svg">
+
+</head>
+<style>
+    h1 {
+      text-align: center;
+      color: saddlebrown;
+      font-size: 80px;
+    }
+    h3 {
+        color: red;
+    }
+    body {
+        text-align: center;
+        background: url("https://image.shutterstock.com/z/stock-photo-winter-forest-instagram-filter-319127498.jpg");
+    }
+    input[type="submit"] {
+        background: red;
+        color: white;
+        border: 0px;
+        font-size: 22px;
+        border-radius: 10%;
+        margin-right:16px;
+    }
+    img {
+        height: 150px;
+        width: 150px;
+        border-radius: 20%;
+    }
+    label {
+        color: brown;
+        font-size: 30px;
+        padding: 10px 10px 10px 10px;
+        margin-bottom: 10px;
+    }
+    input[type="password"] {
+        border: 0px;
+        width: 250px;
+        height: 25px;
+        background: khaki;
+        padding: 10px 10px 10px 10px;
+        margin-bottom: 10px;
+    }
+    input[type="text"] {
+        border: 0px;
+        width: 250px;
+        height: 25px;
+        background: khaki;
+        padding: 10px 10px 10px 10px;
+        margin-bottom: 10px;
+    }
+    </style>
 <body>
-<h1>InstaClone</h1>
-<h3>Login</h3>
+<h1>Login </h1>
+
  <form action ="" method="post">{% csrf_token %}
 
       <div>
@@ -20,8 +72,9 @@
       </div>
 
       <input type="submit" value="Log In">
+       <h3> {{ message }} </h3>
 
     </form>
-
 </body>
 </html>
+

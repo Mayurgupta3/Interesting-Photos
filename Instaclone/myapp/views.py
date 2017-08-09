@@ -129,7 +129,6 @@ def like_view(request):
         form = LikeForm(request.POST)
         if form.is_valid():
             post_id = form.cleaned_data.get('post').id
-
             existing_like = LikeModel.objects.filter(post_id=post_id, user=user).first()
             print existing_like
 
@@ -208,15 +207,16 @@ def search_view(request):
         if form.is_valid():
             print 'valid'
             search = form.cleaned_data.get('category')
+            print search
             search1 = SearchModel(category=search)
-            print search1
+            print search1.category
             search1.save()
-            posts = PostModel.objects.filter(category_post = search)
+            posts = PostModel.objects.filter(category_post = search1.category)
             print posts
             if posts:
-                return redirect('/category/',{'posts': posts})
+                return render(request, 'category.html', {'posts': posts})
             else:
-                return render(request,'search.html',{'form': form})
+                return redirect('/login/')
 
         else:
             print 'INVALID'
