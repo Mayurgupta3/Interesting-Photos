@@ -22,7 +22,7 @@ pip install imgur
 
 Install Clarifai
 ```
-pip install Clarifai
+pip install clarifai
 ```
 
 ## Running the project 
